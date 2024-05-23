@@ -26,6 +26,16 @@ class Api {
 	 * @return boolean
 	 */
 	public function verify_request( $request ) {
+        /**
+         * Check if the request is coming from the same domain
+         */
+
+        $origin = $request->get_header( 'origin' );
+
+        if ( ! $origin ) {
+            return false;
+        }
+
 		return true;
 	}
 
@@ -38,7 +48,7 @@ class Api {
 		$verify = $this->verify_request( $request );
 
 		if ( ! $verify ) {
-			return new \WP_Error( 400, esc_html__( 'Invalid API Key', 'pexels' ), array( 'status' => 400 ) );
+			return new \WP_Error( 400, esc_html__( 'Invalid Request!', 'pexels' ), array( 'status' => 400 ) );
 		}
 
 		/**
