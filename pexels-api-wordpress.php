@@ -45,5 +45,5 @@ function papiwp_menu_page() {
 }
 
 function papiwp_menu_page_callback() {
-    echo 'This is the menu page for Pexels API';
+    require_once __DIR__ . '/demo.php';
 }
