@@ -1,2 +1,2 @@
-# pexels-api-wordpress
+# Pexels API WordPress
 Generate Image by Pexels API for WordPress
