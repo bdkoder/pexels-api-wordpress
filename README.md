@@ -3,7 +3,7 @@ Generate Image by Pexels API for WordPress
 
 ### API Key Pexels
 ```js
-// please use your own key instead this one
+// please use your own api key instead this one
 l7Pk56fQ7sjfslcgFBUXVuggY5sZ2EIRLtSvM1pBwLyzpIWjdQ93gVpH
 ```
 ### API Call
