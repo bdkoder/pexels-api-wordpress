@@ -36,7 +36,19 @@
                     var output = '';
 
                     $.each(images, function (index, image) {
-                        output += '<img src="' + image.src.medium + '" alt="' + image.photographer + '">';
+                        output += `<div class="paw-image">`;
+                        output += `<img src="${image.src.medium}" alt="${image.photographer}">`;
+                        output += `<div class="paw-image-info">`;
+                        output += `<p>Photographer: ${image.photographer}</p>`;
+                        // output += `<a href="${image.src.original}" target="_blank">Download</a>`;
+                        output += `<a href="${image.url}" target="_blank">View on Pexels</a>`;
+                        output += '<button class="download-btn" data-url="' + image.src.original + '">Upload</button>';
+                        output += `<button class="download-btn" data-url="${image.src.large}">Large</button>`;
+                        output += `<button class="download-btn" data-url="${image.src.medium}">Medium</button>`;
+                        output += `<button class="download-btn" data-url="${image.src.small}">Small</button>`;
+                        output += `</div>`;
+                        output += `</div>`;
+
                     });
 
                     if (reset) {
@@ -78,6 +90,34 @@
             page = 1;
             searchMode = true;
             loadImages(true);
+        });
+
+        // Handle download button click
+        $(document).on('click', '.download-btn', function () {
+            var imageUrl = $(this).data('url');
+            var button = $(this);
+
+            // Show loading indicator on the button
+            button.text('Uploading...');
+
+            $.ajax({
+                url: 'http://192.168.1.111:9001/wp-admin/admin-ajax.php', // Replace with your WordPress AJAX URL
+                method: 'POST',
+                data: {
+                    action: 'upload_image_to_wp',
+                    image_url: imageUrl
+                },
+                success: function (response) {
+                    if (response.success) {
+                        button.text('Uploaded');
+                    } else {
+                        button.text('Failed');
+                    }
+                },
+                error: function () {
+                    button.text('Failed');
+                }
+            });
         });
         
     });
