@@ -29,27 +29,22 @@ define( 'PAPIWP_INC_PATH', PAPIWP_PATH . 'includes/' );
 
 require_once PAPIWP_PATH . 'pexels/init.php';
 
+require_once PAPIWP_PATH . 'demo-media/demo-media.php';
 
-// add_action('init', function(){
-    require_once PAPIWP_PATH . 'demo-media/demo-media.php';
-// });
-
-
-// menu page for plugin
 add_action( 'admin_menu', 'papiwp_menu_page' );
 function papiwp_menu_page() {
-    add_menu_page(
-        'Pexels API',
-        'Pexels API',
-        'manage_options',
-        'papiwp',
-        'papiwp_menu_page_callback',
-        'dashicons-format-image',
-        6
-    );
+	add_menu_page(
+		'Pexels API',
+		'Pexels API',
+		'manage_options',
+		'papiwp',
+		'papiwp_menu_page_callback',
+		'dashicons-format-image',
+		6
+	);
 }
 
 function papiwp_menu_page_callback() {
-    require_once __DIR__ . '/demo.php';
+	require_once __DIR__ . '/demo.php';
 }
 

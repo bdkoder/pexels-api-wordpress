@@ -45,11 +45,15 @@ class Api {
 	 */
 	public function prepare_request( $request ) {
 
-		$verify = $this->verify_request( $request );
+		// $verify = $this->verify_request( $request );
+		$verify = true;
 
+		
 		if ( ! $verify ) {
 			return new \WP_Error( 400, esc_html__( 'Invalid Request!', 'pexels' ), array( 'status' => 400 ) );
 		}
+		
+		$route = $request->get_route();
 
 		/**
 		 * Get parameters from API Call
@@ -59,6 +63,12 @@ class Api {
 		$parameters      = isset( $parameters_data['data'] ) ? $parameters_data['data'] : $parameters_data;
 		$search          = isset( $parameters['search'] ) ? sanitize_text_field( $parameters['search'] ) : '';
         $api_key         = isset( $parameters['api_key'] ) ? sanitize_text_field( $parameters['api_key'] ) : '';
+		$page = isset( $parameters['page'] ) ? absint( $parameters['page'] ) : 1;
+		$per_page = isset( $parameters['per_page'] ) ? absint( $parameters['per_page'] ) : 15;
+
+		if('/pexels/v1/curated' === $route) {
+			$search = 'curated';
+		}
 
         if( empty( $search ) ) {
             return new \WP_Error( 400, esc_html__( 'Search query is required', 'pexels' ), array( 'status' => 400 ) );
@@ -68,9 +78,6 @@ class Api {
             return new \WP_Error( 400, esc_html__( 'API Key is required', 'pexels' ), array( 'status' => 400 ) );
         }
 
-        $page = isset( $parameters['page'] ) ? absint( $parameters['page'] ) : 1;
-        $per_page = isset( $parameters['per_page'] ) ? absint( $parameters['per_page'] ) : 15;
-        
         /**
          * Get Images
          */
@@ -89,12 +96,22 @@ class Api {
 	 * @return void
 	 */
 	public function register_routes() {
-		$namespace = 'pexels';
-		$base      = '/v1';
+		$namespace = 'pexels/v1';
+		$base      = '/search';
 
 		register_rest_route(
 			$namespace,
 			$base,
+			array(
+				'methods'             => 'POST',
+				'callback'            => array( $this, 'prepare_request' ),
+				'permission_callback' => '__return_true',
+			)
+		);
+
+		register_rest_route(
+			$namespace,
+			'/curated',
 			array(
 				'methods'             => 'POST',
 				'callback'            => array( $this, 'prepare_request' ),

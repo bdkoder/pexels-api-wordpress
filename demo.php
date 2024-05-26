@@ -54,7 +54,7 @@
             e.preventDefault();
 
             $.ajax({
-                url: 'http://192.168.1.111:9001/wp-json/pexels/v1',
+                url: 'http://192.168.1.111:9001/wp-json/pexels/v1/search',
                 method: 'POST',
                 // beforeSend: function(xhr) {
                 //     xhr.setRequestHeader('X-WP-Nonce', paw_data.nonce);
