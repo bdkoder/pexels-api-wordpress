@@ -23,8 +23,8 @@ function my_custom_media_tab_content() {
 		<div id="bdt-ai-media-tab"></div>
 	</div>
 
-	<form>
-		<input type="text" id="paw-search" placeholder="Search for images">
+	<form id="search-form">
+		<input type="text" id="search-input" placeholder="Search for images">
 		<input type="submit" value="Search">
 	</form>
 	<style>
@@ -63,46 +63,7 @@ function my_custom_media_tab_content() {
 		}
 	</style>
 	<div id="paw-images"></div>
+	<div id="loading-indicator" style="display: none;">Loading...</div>
 
-	<script>
-		jQuery(document).ready(function ($) {
-			var api = 'l7Pk56fQ7sjfslcgFBUXVuggY5sZ2EIRLtSvM1pBwLyzpIWjdQ93gVpH';
-			var search = '';
-			var page = 1;
-			var per_page = 15;
-
-			$('#paw-search').on('input', function () {
-				search = $(this).val();
-			});
-
-			$('form').on('submit', function (e) {
-				e.preventDefault();
-
-				$.ajax({
-					url: 'http://192.168.1.111:9001/wp-json/pexels/v1/search',
-					method: 'POST',
-					// beforeSend: function(xhr) {
-					//     xhr.setRequestHeader('X-WP-Nonce', paw_data.nonce);
-					// },
-					data: {
-						search: search,
-						api_key: api,
-						page: page,
-						per_page: per_page
-					},
-					success: function (response) {
-						var images = response;
-						var output = '';
-
-						$.each(images, function (index, image) {
-							output += '<img src="' + image.src.medium + '" alt="' + image.photographer + '">';
-						});
-
-						$('#paw-images').html(output);
-					}
-				});
-			});
-		});
-	</script>
 	<?php
 }

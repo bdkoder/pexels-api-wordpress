@@ -24,6 +24,8 @@ class Generator {
 
         if('curated' === $search) {
             $url = 'https://api.pexels.com/v1/curated';
+			$url .= '?page=' . $page;
+			$url .= '&per_page=' . $per_page;
         }
 
         $response = wp_remote_get( $url, array(
