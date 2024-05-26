@@ -40,6 +40,10 @@
                         output += `<img src="${image.src.medium}" alt="${image.photographer}">`;
                         output += `<div class="paw-image-info">`;
                         output += `<p>Photographer: ${image.photographer}</p>`;
+                        // Photographer image will be displayed in the modal
+                        output += `<img src="${image.photographer_url}" alt="${image.photographer}">`;
+
+
                         // output += `<a href="${image.src.original}" target="_blank">Download</a>`;
                         output += `<a href="${image.url}" target="_blank">View on Pexels</a>`;
                         output += '<button class="download-btn" data-url="' + image.src.original + '">Upload</button>';
