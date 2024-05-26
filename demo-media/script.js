@@ -79,5 +79,6 @@
             searchMode = true;
             loadImages(true);
         });
+        
     });
 })(jQuery);
