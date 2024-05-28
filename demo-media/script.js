@@ -39,7 +39,7 @@
                         output += `<div class="paw-image">`;
                         output += `<img src="${image.src.medium}" alt="${image.photographer}">`;
                         output += `<div class="paw-image-info">`;
-                        output += `<p>Photographer: ${image.photographer}</p>`;
+                        output += `<p>Photographer: <a href="${image.photographer_url}">${image.photographer}</a></p>`;
                         // Photographer image will be displayed in the modal
                         output += `<img src="${image.photographer_url}" alt="${image.photographer}">`;
 
